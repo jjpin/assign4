@@ -93,7 +93,7 @@ void setup () {
   bulletNumSpeed = 3 ;
   addSpeed =0.02;
   
-  //flames : Out of Canva
+  //flame
   flameNum = 0;
   flameCurrent = 0;
   for ( int i = 0; i < hitPosition.length; i ++){
@@ -101,12 +101,12 @@ void setup () {
     hitPosition [i][1] = 1000;
   }
 
-  //bulletNum : No bulletNums in the air
+  //no bullet
   for (int i =0; i < bulletNumLimit.length ; i ++){
     bulletNumLimit[i] = false;
   }
 
-  //enemy : draw LINE 
+  //enemy line
   spacingX = 0;  
   spacingY = -60; 
   enemyFlyY = floor( random(80, 400) );   
@@ -134,7 +134,7 @@ void draw() {
     break;  
     case GAME_RUN:
     
-    //background_scrolling
+    //bg
       image (bg2, scrollRight, 0);
       image (bg1, scrollRight - width, 0);
       image (bg2, scrollRight - width * 2, 0); 
@@ -142,19 +142,10 @@ void draw() {
       scrollRight += 2;
       scrollRight %= width * 2;
       
-    //treasure_draw
-      image (treasure, treasureX, treasureY);    
+    //treasure
+      image (treasure, treasureX, treasureY);   
       
-    //treasure_avoid repeat
-      if(treasureX >= (width - 65) - treasure.width 
-        && treasureX <= (width - 65) + fighter.width 
-        && treasureY >= (height / 2) - treasure.height
-        && treasureY <= (height / 2) + fighter.height){  
-        treasureX = floor( random(50, width - 40) );
-        treasureY = floor( random(50, height - 60) );
-      }    
-      
-    //Fighter_move
+    //fighter
       image(fighter, fighterX, fighterY);
       
       if (upPressed && fighterY > 0) {
@@ -170,7 +161,7 @@ void draw() {
         fighterX += fighterSpeed ;
       }  
         
-    //Flames_burning
+    //flame
       image(hit[flameCurrent], hitPosition[flameCurrent][0], hitPosition[flameCurrent][1]);
       
       flameNum ++;
@@ -180,8 +171,7 @@ void draw() {
       if ( flameCurrent > 4){
         flameCurrent = 0;
       }
-      
-    //Flames_keep_burning   
+  
       if(flameNum > 31){
         for (int i = 0; i < 5; i ++){
           hitPosition [i][0] = 1000;
@@ -189,7 +179,7 @@ void draw() {
         }
       }   
       
-    //bulletNum_bulletNum_fly
+    //bullet
       for (int i = 0; i < 5; i ++){
         if (bulletNumLimit[i] == true){
           image (bullet, bulletNumX[i], bulletNumY[i]);
@@ -200,6 +190,7 @@ void draw() {
         }
       }
     
+      //enemy
       switch (enemyState) { 
         case C :        
         
@@ -402,12 +393,10 @@ void draw() {
         break ;
       }
 
-     //HP_BAR_draw
+     //hp
       fill (#FF0000);
       rect (35, 15, hpX, 30);
-      image(hp, 28, 15); 
-      
-      /* HP + 10 */         
+      image(hp, 28, 15);
         if ( fighterX >= treasureX - fighter.width 
           && fighterX <= treasureX + treasure.width
           && fighterY >= treasureY - fighter.height
